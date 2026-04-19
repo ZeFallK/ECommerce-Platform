@@ -1,0 +1,68 @@
+services:
+  orders:
+    build: ../services/orders
+    ports:
+      - "8001:8000"
+    volumes:
+      - ../services/orders:/app
+    networks:
+      - ecommerce-net
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  inventory:
+    build: ../services/inventory
+    ports:
+      - "8002:8000"
+    volumes:
+      - ../services/inventory:/app
+    networks:
+      - ecommerce-net
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  payments:
+    build: ../services/payments
+    ports:
+      - "8003:8000"
+    networks:
+      - ecommerce-net
+    volumes:
+      - ../services/payments:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+  
+  kafka:
+    container_name: kafka
+    image: apache/kafka:4.0.2
+    networks:
+      - ecommerce-net
+    ports:
+      - "9092:9092"
+    environment:
+      # Activation KRaft 
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      # Configuration écoutes réseau
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      # Désactive la création manuelle obligatoire des topics
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=ecommerce-cluster
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+    depends_on:
+      - kafka
+
+
+
+networks:
+  ecommerce-net:
+    driver: bridge
