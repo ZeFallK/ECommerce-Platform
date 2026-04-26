@@ -1,5 +1,17 @@
 from fastapi import FastAPI
 import random, logging
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.sdk.resources import Resource
+
+resource = Resource(attributes={"service.name": "inventory"})
+provider = TracerProvider(resource=resource)
+exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure=True)
+provider.add_span_processor(BatchSpanProcessor(exporter))
+trace.set_tracer_provider(provider)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -8,6 +20,7 @@ logging.basicConfig(
 logger = logging.getLogger("inventory")
 
 app = FastAPI(title="Inventory Service")
+FastAPIInstrumentor().instrument_app(app)
 
 @app.get("/stock/{product_id}")
 async def get_stock(product_id: str):

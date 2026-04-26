@@ -3,12 +3,24 @@ from contextlib import asynccontextmanager
 from aiokafka import AIOKafkaProducer
 from pydantic import BaseModel
 import uuid, json, logging, asyncio
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.sdk.resources import Resource
 
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger("orders")
+
+resource = Resource(attributes={"service.name": "orders"})
+provider = TracerProvider(resource=resource)
+exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure=True)
+provider.add_span_processor(BatchSpanProcessor(exporter))
+trace.set_tracer_provider(provider)
 
 producer = None
 @asynccontextmanager
@@ -29,6 +41,7 @@ async def lifespan(app: FastAPI):
     logger.info("Producer deconnecte proprement.")
 
 app = FastAPI(title="Orders Service", version="1.0", lifespan=lifespan)
+FastAPIInstrumentor.instrument_app(app)
 
 class Order(BaseModel):
     product_id: str

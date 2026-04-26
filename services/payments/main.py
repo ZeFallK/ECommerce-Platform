@@ -3,6 +3,18 @@ from pydantic import BaseModel
 from aiokafka import AIOKafkaConsumer, AIOKafkaProducer
 from contextlib import asynccontextmanager
 import uuid, json, asyncio, logging
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.sdk.resources import Resource
+
+resource = Resource(attributes={"service.name": "payments"})
+provider = TracerProvider(resource=resource)
+exporter = OTLPSpanExporter(endpoint="http://otel-collector:4317", insecure=True)
+provider.add_span_processor(BatchSpanProcessor(exporter))
+trace.set_tracer_provider(provider)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -65,6 +77,7 @@ async def lifespan(app: FastAPI):
     await producer.stop()
 
 app = FastAPI(title="Payment Service", version="1.0", lifespan=lifespan)
+FastAPIInstrumentor().instrument_app(app)
 
 class Payment(BaseModel):
     order_id: str

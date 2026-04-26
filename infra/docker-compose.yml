@@ -84,6 +84,68 @@ services:
       kafka:
         condition: service_healthy
 
+  otel-collector:
+      image: otel/opentelemetry-collector-contrib:nightly
+      container_name: otel-collector
+      volumes:
+        - ./otel/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml  # ← otel/
+      ports:
+        - "4317:4317"
+        - "4318:4318"
+      networks:
+        - ecommerce-net
+      depends_on:
+        - prometheus
+        - tempo
+        - loki
+
+  prometheus:
+      image: prom/prometheus:latest
+      container_name: prometheus
+      volumes:
+        - ./otel/prometheus.yaml:/etc/prometheus/prometheus.yaml  # ← otel/
+      ports:
+        - "9090:9090"
+      networks:
+        - ecommerce-net
+
+  tempo:
+      image: grafana/tempo:latest
+      container_name: tempo
+      command: ["-config.file=/etc/tempo.yaml"]
+      volumes:
+        - ./otel/tempo.yaml:/etc/tempo.yaml  # ← otel/
+      ports:
+        - "3200:3200"
+        - "4319:4317"
+      networks:
+        - ecommerce-net
+
+  loki:
+      image: grafana/loki:latest
+      container_name: loki
+      ports:
+        - "3100:3100"
+      networks:
+        - ecommerce-net
+
+  grafana:
+      image: grafana/grafana:latest
+      container_name: grafana
+      ports:
+        - "3000:3000"
+      environment:
+        - GF_AUTH_ANONYMOUS_ENABLED=true
+        - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      volumes:
+        - ./otel/grafana/provisioning:/etc/grafana/provisioning  # ← otel/
+      networks:
+        - ecommerce-net
+      depends_on:
+        - prometheus
+        - tempo
+        - loki
+
 networks:
   ecommerce-net:
     driver: bridge
