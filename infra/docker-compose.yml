@@ -139,8 +139,9 @@ services:
         - GF_AUTH_ANONYMOUS_ENABLED=true
         - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       volumes:
-        - ./otel/grafana/provisioning:/etc/grafana/provisioning
         - ./otel/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+        - ./otel/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+        - ./otel/ecommerce.json:/var/lib/grafana/dashboards/ecommerce.json
       networks:
         - ecommerce-net
       depends_on:
