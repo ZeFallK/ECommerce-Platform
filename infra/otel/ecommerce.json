@@ -1,0 +1,75 @@
+{
+  "title": "E-Commerce Control Tower",
+  "uid": "ecommerce-main-dash",
+  "tags": ["ecommerce", "microservices"],
+  "timezone": "browser",
+  "refresh": "5s",
+  "panels": [
+    {
+      "title": "Flux des Événements (Logs combinés)",
+      "type": "logs",
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "{service_name=~\"orders|payments|inventory\"}",
+          "refId": "A",
+          "datasource": { "type": "loki", "uid": "loki" }
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": false,
+        "showCommonLabels": false,
+        "wrapLogMessage": true,
+        "sortOrder": "Descending"
+      }
+    },
+    {
+      "title": "Requêtes HTTP par Service (Prometheus)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+      "targets": [
+        {
+          "expr": "sum by (service_name) (rate(http_server_duration_milliseconds_count[1m]))",
+          "refId": "A",
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "legendFormat": "{{service_name}}"
+        }
+      ],
+      "options": {
+        "legend": { "displayMode": "list", "placement": "bottom" },
+        "tooltip": { "mode": "multi" }
+      }
+    },
+    {
+      "title": "Ruptures de Stock Alertes (Loki)",
+      "type": "stat",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 },
+      "targets": [
+        {
+          "expr": "count_over_time({service_name=\"inventory\"} |= \"RUPTURE\" [1m])",
+          "refId": "A",
+          "datasource": { "type": "loki", "uid": "loki" }
+        }
+      ],
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "red", "value": 1 }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "schemaVersion": 38
+}
