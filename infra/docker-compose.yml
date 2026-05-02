@@ -85,10 +85,11 @@ services:
         condition: service_healthy
 
   otel-collector:
-      image: otel/opentelemetry-collector-contrib:nightly
       container_name: otel-collector
+      image: otel/opentelemetry-collector-contrib:0.151.0
+      command: ["--config=/etc/collector-config.yaml"]
       volumes:
-        - ./otel/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml  # ← otel/
+        - ./otel/otel-collector-config.yaml:/etc/collector-config.yaml  
       ports:
         - "4317:4317"
         - "4318:4318"
@@ -103,7 +104,7 @@ services:
       image: prom/prometheus:latest
       container_name: prometheus
       volumes:
-        - ./otel/prometheus.yaml:/etc/prometheus/prometheus.yaml  # ← otel/
+        - ./otel/prometheus.yml:/etc/prometheus/prometheus.yml  # ← otel/
       ports:
         - "9090:9090"
       networks:
@@ -138,7 +139,8 @@ services:
         - GF_AUTH_ANONYMOUS_ENABLED=true
         - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       volumes:
-        - ./otel/grafana/provisioning:/etc/grafana/provisioning  # ← otel/
+        - ./otel/grafana/provisioning:/etc/grafana/provisioning
+        - ./otel/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
       networks:
         - ecommerce-net
       depends_on:
@@ -149,3 +151,4 @@ services:
 networks:
   ecommerce-net:
     driver: bridge
+
