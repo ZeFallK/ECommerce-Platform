@@ -41,7 +41,6 @@ meter_provider = MeterProvider(resource=resource, metric_readers=[metric_reader]
 metrics.set_meter_provider(meter_provider)
 
 producer = None
-
 async def listen_kafka():
     consumer = AIOKafkaConsumer(
         'orders.created',
@@ -69,6 +68,8 @@ async def listen_kafka():
             event = {
                 "order_id":    commande["order_id"],
                 "customer_id": commande["customer_id"],
+                "product_id":  commande["product_id"], 
+                "quantity":    commande["quantity"],   
                 "amount":      montant,
                 "status":      "success",
             }
