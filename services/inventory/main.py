@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 import random, logging, asyncio, json
 from aiokafka import AIOKafkaConsumer
 from contextlib import asynccontextmanager
@@ -18,6 +18,7 @@ from opentelemetry import metrics
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
+from security import verify_token
 
 resource = Resource(attributes={"service.name": "inventory"})
 
@@ -115,7 +116,7 @@ app = FastAPI(title="Inventory Service", version="1.0", lifespan=lifespan, root_
 FastAPIInstrumentor.instrument_app(app, tracer_provider=tracer_provider, meter_provider=meter_provider)
 
 @app.get("/stock/{product_id}")
-async def get_stock(product_id: str):
+async def get_stock(product_id: str, current_user: dict = Depends(verify_token)):
     logger.info(f"Requête API reçue pour vérifier le stock de {product_id}")
 
     if product_id not in inventory_db:
