@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from pydantic import BaseModel
 from aiokafka import AIOKafkaConsumer, AIOKafkaProducer
 from contextlib import asynccontextmanager
@@ -19,6 +19,7 @@ from opentelemetry import metrics
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
+from security import verify_token
 
 resource = Resource(attributes={"service.name": "payments"})
 provider = TracerProvider(resource=resource)
@@ -103,7 +104,7 @@ class Payment(BaseModel):
     amount: float
 
 @app.post("/pay", status_code=201)
-async def process_payment(payment: Payment):
+async def process_payment(payment: Payment, current_user: dict = Depends(verify_token)):
     transaction_id = str(uuid.uuid4())
     logger.info(f"Requête HTTP (API) reçue pour payer la commande {payment.order_id}")
 
