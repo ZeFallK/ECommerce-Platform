@@ -59,7 +59,7 @@ async def lifespan(app: FastAPI):
     await producer.stop()
     logger.info("Producer deconnecte proprement.")
 
-app = FastAPI(title="Orders Service", version="1.0", lifespan=lifespan)
+app = FastAPI(title="Orders Service", version="1.0", lifespan=lifespan, root_path="/api/orders")
 FastAPIInstrumentor.instrument_app(app, tracer_provider=tracer_provider, meter_provider=meter_provider)
 
 class Order(BaseModel):

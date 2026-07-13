@@ -1,8 +1,6 @@
 services:
   orders:
     build: ../services/orders
-    ports:
-      - "8001:8000"
     volumes:
       - ../services/orders:/app
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
@@ -11,11 +9,15 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.orders.rule=PathPrefix(`/api/orders`)"
+      - "traefik.http.middlewares.orders-strip.stripprefix.prefixes=/api/orders"
+      - "traefik.http.routers.orders.middlewares=orders-strip"
+      - "traefik.http.services.orders.loadbalancer.server.port=8000"
 
   inventory:
     build: ../services/inventory
-    ports:
-      - "8002:8000"
     volumes:
       - ../services/inventory:/app
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
@@ -24,11 +26,15 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.inventory.rule=PathPrefix(`/api/inventory`)"
+      - "traefik.http.middlewares.inventory-strip.stripprefix.prefixes=/api/inventory"
+      - "traefik.http.routers.inventory.middlewares=inventory-strip"
+      - "traefik.http.services.inventory.loadbalancer.server.port=8000"
 
   payments:
     build: ../services/payments
-    ports:
-      - "8003:8000"
     volumes:
       - ../services/payments:/app
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
@@ -37,6 +43,51 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.payments.rule=PathPrefix(`/api/payments`)"
+      - "traefik.http.middlewares.payments-strip.stripprefix.prefixes=/api/payments"
+      - "traefik.http.routers.payments.middlewares=payments-strip"
+      - "traefik.http.services.payments.loadbalancer.server.port=8000"
+
+  traefik:
+    image: traefik:v3.6
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"     # Le routeur principal pour tes API
+      - "8090:8080" # L'interface Traefik décalée pour éviter Keycloak !
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - ecommerce-net 
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    container_name: keycloak
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: dev-file
+      # Les réglages pour Traefik :
+      KC_PROXY: edge 
+      KC_HTTP_RELATIVE_PATH: /auth
+      KC_HOSTNAME_URL: http://localhost/auth
+      KC_HOSTNAME_ADMIN_URL: http://localhost/auth
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.keycloak.entrypoints=web"
+      - "traefik.http.routers.keycloak.rule=PathPrefix(`/auth`)"
+      - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    networks:
+      - ecommerce-net
 
   kafka:
     container_name: kafka
@@ -58,13 +109,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       CLUSTER_ID: "5L6g3nShT-eMCtK--X86sw"
     healthcheck:
-      test:
-        [
-          "CMD",
-          "/opt/kafka/bin/kafka-broker-api-versions.sh",
-          "--bootstrap-server",
-          "localhost:9092",
-        ]
+      test: ["CMD", "/opt/kafka/bin/kafka-broker-api-versions.sh", "--bootstrap-server", "localhost:9092"]
       interval: 15s
       timeout: 10s
       retries: 10
@@ -74,7 +119,7 @@ services:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest
     ports:
-      - "8080:8080"
+      - "8081:8080"
     networks:
       - ecommerce-net
     environment:
@@ -85,71 +130,73 @@ services:
         condition: service_healthy
 
   otel-collector:
-      container_name: otel-collector
-      image: otel/opentelemetry-collector-contrib:0.151.0
-      command: ["--config=/etc/collector-config.yaml"]
-      volumes:
-        - ./otel/otel-collector-config.yaml:/etc/collector-config.yaml  
-      ports:
-        - "4317:4317"
-        - "4318:4318"
-      networks:
-        - ecommerce-net
-      depends_on:
-        - prometheus
-        - tempo
-        - loki
+    container_name: otel-collector
+    image: otel/opentelemetry-collector-contrib:0.151.0
+    command: ["--config=/etc/collector-config.yaml"]
+    volumes:
+      - ./otel/otel-collector-config.yaml:/etc/collector-config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - ecommerce-net
+    depends_on:
+      - prometheus
+      - tempo
+      - loki
 
   prometheus:
-      image: prom/prometheus:latest
-      container_name: prometheus
-      volumes:
-        - ./otel/prometheus.yml:/etc/prometheus/prometheus.yml  # ← otel/
-      ports:
-        - "9090:9090"
-      networks:
-        - ecommerce-net
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./otel/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - ecommerce-net
 
   tempo:
-      image: grafana/tempo:latest
-      container_name: tempo
-      command: ["-config.file=/etc/tempo.yaml"]
-      volumes:
-        - ./otel/tempo.yaml:/etc/tempo.yaml  # ← otel/
-      ports:
-        - "3200:3200"
-        - "4319:4317"
-      networks:
-        - ecommerce-net
+    image: grafana/tempo:latest
+    container_name: tempo
+    command: ["-config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./otel/tempo.yaml:/etc/tempo.yaml
+    ports:
+      - "3200:3200"
+      - "4319:4317"
+    networks:
+      - ecommerce-net
 
   loki:
-      image: grafana/loki:latest
-      container_name: loki
-      ports:
-        - "3100:3100"
-      networks:
-        - ecommerce-net
+    image: grafana/loki:latest
+    container_name: loki
+    ports:
+      - "3100:3100"
+    networks:
+      - ecommerce-net
 
   grafana:
-      image: grafana/grafana:latest
-      container_name: grafana
-      ports:
-        - "3000:3000"
-      environment:
-        - GF_AUTH_ANONYMOUS_ENABLED=true
-        - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-      volumes:
-        - ./otel/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
-        - ./otel/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
-        - ./otel/ecommerce.json:/var/lib/grafana/dashboards/ecommerce.json
-      networks:
-        - ecommerce-net
-      depends_on:
-        - prometheus
-        - tempo
-        - loki
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - ./otel/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./otel/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./otel/ecommerce.json:/var/lib/grafana/dashboards/ecommerce.json
+    networks:
+      - ecommerce-net
+    depends_on:
+      - prometheus
+      - tempo
+      - loki
 
 networks:
   ecommerce-net:
     driver: bridge
 
+volumes:
+  keycloak_data:

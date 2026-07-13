@@ -95,7 +95,7 @@ async def lifespan(app: FastAPI):
     task.cancel()
     await producer.stop()
 
-app = FastAPI(title="Payment Service", version="1.0", lifespan=lifespan)
+app = FastAPI(title="Payment Service", version="1.0", lifespan=lifespan, root_path="/api/payments")
 FastAPIInstrumentor.instrument_app(app, tracer_provider=provider, meter_provider=meter_provider)
 
 class Payment(BaseModel):

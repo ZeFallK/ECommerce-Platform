@@ -111,7 +111,7 @@ async def lifespan(app: FastAPI):
     yield 
     task.cancel()
 
-app = FastAPI(title="Inventory Service", version="1.0", lifespan=lifespan)
+app = FastAPI(title="Inventory Service", version="1.0", lifespan=lifespan, root_path="/api/inventory")
 FastAPIInstrumentor.instrument_app(app, tracer_provider=tracer_provider, meter_provider=meter_provider)
 
 @app.get("/stock/{product_id}")
