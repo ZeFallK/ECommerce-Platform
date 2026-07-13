@@ -19,6 +19,8 @@ from opentelemetry import metrics
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
+from fastapi import Depends
+from security import verify_token
 
 resource = Resource(attributes={"service.name": "orders"})
 
@@ -68,7 +70,7 @@ class Order(BaseModel):
     quantity: int
 
 @app.post("/orders/", status_code=201)
-async def create_order(order: Order):
+async def create_order(order: Order, current_user: dict = Depends(verify_token)):
     order_id = str(uuid.uuid4())
     logger.info(f"Requete de creation de commande recue (Client: {order.customer_id}, Produit: {order.product_id})")
 
