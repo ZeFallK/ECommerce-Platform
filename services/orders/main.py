@@ -68,7 +68,7 @@ class Order(BaseModel):
     customer_id: str
     quantity: int
 
-@app.post("/orders/", status_code=201)
+@app.post("/", status_code=201)
 async def create_order(order: Order, current_user: dict = Depends(verify_token)):
     order_id = str(uuid.uuid4())
     logger.info(f"Requete de creation de commande recue (Client: {order.customer_id}, Produit: {order.product_id})")

@@ -49,6 +49,21 @@ services:
       - "traefik.http.middlewares.payments-strip.stripprefix.prefixes=/api/payments"
       - "traefik.http.routers.payments.middlewares=payments-strip"
       - "traefik.http.services.payments.loadbalancer.server.port=8000"
+  frontend:
+    build:
+      context: ../frontend
+    volumes:
+      # Synchronise ton code en temps réel sans avoir à rebuild
+      - ../frontend:/app
+      # Empêche d'écraser les modules Linux par tes modules Windows/Mac
+      - /app/node_modules 
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+      - "traefik.http.services.frontend.loadbalancer.server.port=5173"
+    networks:
+      - ecommerce-net 
+
 
   traefik:
     image: traefik:v3.6
