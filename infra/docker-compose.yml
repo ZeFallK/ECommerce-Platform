@@ -64,7 +64,6 @@ services:
     networks:
       - ecommerce-net 
 
-
   traefik:
     image: traefik:v3.6
     container_name: traefik
@@ -84,7 +83,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.1
     container_name: keycloak
-    command: start-dev
+    command: start-dev --import-realm
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
@@ -101,6 +100,7 @@ services:
       - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
     volumes:
       - keycloak_data:/opt/keycloak/data
+      - ./keycloak:/opt/keycloak/data/import:ro
     networks:
       - ecommerce-net
 
