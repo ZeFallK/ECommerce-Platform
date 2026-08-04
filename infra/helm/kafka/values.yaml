@@ -1,0 +1,29 @@
+fullnameOverride: kafka
+
+image:
+  repository: apache/kafka
+  tag: "4.0.2"
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 9092
+  controllerPort: 9093
+
+clusterId: 5L6g3nShT-eMCtK--X86sw
+
+persistence:
+  enabled: true
+  storageClassName: ""
+  size: 2Gi
+
+topics:
+  - orders.created
+  - payments.processed
+
+topicJob:
+  enabled: true
+  backoffLimit: 10
+
+resources: {}

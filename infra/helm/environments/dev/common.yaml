@@ -1,0 +1,8 @@
+global:
+  # Set this to the registry prefix used by the cluster, for example:
+  # imageRegistry: 192.168.49.2:5000
+  imageRegistry: ""
+  kafka:
+    bootstrapServers: "kafka:9092"
+  otel:
+    endpoint: "http://otel-collector:4317"

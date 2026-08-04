@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "keycloak.fullname" . }}
+  labels:
+    {{- include "keycloak.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "keycloak.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "keycloak.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/realm: {{ include "keycloak.realmJson" . | sha256sum }}
+    spec:
+      containers:
+        - name: keycloak
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - start-dev
+            - --import-realm
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          env:
+            - name: KEYCLOAK_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ if .Values.admin.existingSecret }}{{ .Values.admin.existingSecret }}{{ else }}{{ include "keycloak.fullname" . }}-admin{{ end }}
+                  key: username
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ if .Values.admin.existingSecret }}{{ .Values.admin.existingSecret }}{{ else }}{{ include "keycloak.fullname" . }}-admin{{ end }}
+                  key: password
+            - name: KC_DB
+              value: dev-file
+            - name: KC_HTTP_RELATIVE_PATH
+              value: {{ .Values.http.relativePath | quote }}
+            - name: KC_HOSTNAME_URL
+              value: {{ .Values.hostname.publicUrl | quote }}
+            - name: KC_HOSTNAME_ADMIN_URL
+              value: {{ .Values.hostname.adminUrl | quote }}
+            - name: KC_PROXY
+              value: {{ .Values.proxy | quote }}
+          startupProbe:
+            httpGet:
+              path: {{ .Values.http.relativePath }}/realms/master
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.http.relativePath }}/realms/master
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 12
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.http.relativePath }}/realms/master
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 6
+          volumeMounts:
+            - name: data
+              mountPath: /opt/keycloak/data
+            - name: realm
+              mountPath: /opt/keycloak/data/import
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+        - name: realm
+          secret:
+            secretName: {{ include "keycloak.fullname" . }}-realm
+            items:
+              - key: ecommerce-realm.json
+                path: ecommerce-realm.json
+        - name: data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "keycloak.fullname" . }}-data
+          {{- else }}
+          emptyDir: {}
+          {{- end }}

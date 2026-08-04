@@ -1,0 +1,6 @@
+apiVersion: v2
+name: keycloak
+description: Keycloak development deployment for the ecommerce platform
+type: application
+version: 0.1.0
+appVersion: "24.0.1"

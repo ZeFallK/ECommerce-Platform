@@ -1,0 +1,11 @@
+apiVersion: v2
+name: traefik-config
+description: Minimal Traefik ingress controller configuration for Minikube
+type: application
+version: 0.1.0
+appVersion: "3.6.15"
+
+dependencies:
+  - name: traefik
+    version: 39.0.9
+    repository: https://traefik.github.io/charts

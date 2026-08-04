@@ -1,0 +1,51 @@
+fullnameOverride: keycloak
+
+image:
+  repository: quay.io/keycloak/keycloak
+  tag: "24.0.1"
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  port: 8080
+
+admin:
+  username: admin
+  password: admin
+  existingSecret: ""
+
+hostname:
+  publicUrl: http://localhost/auth
+  adminUrl: http://localhost/auth
+
+http:
+  relativePath: /auth
+
+proxy: edge
+
+realm:
+  name: ecommerce
+  displayName: Ecommerce
+  clientId: ecomm-front
+  rootUrl: http://localhost
+  validRedirectUris:
+    - http://localhost/*
+  webOrigins:
+    - http://localhost
+  testUser:
+    username: test
+    password: test
+    email: test@localhost
+
+persistence:
+  enabled: true
+  storageClassName: ""
+  size: 1Gi
+
+ingress:
+  enabled: true
+  path: /auth
+  pathType: Prefix
+
+resources: {}

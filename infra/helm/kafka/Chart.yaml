@@ -1,0 +1,6 @@
+apiVersion: v2
+name: kafka
+description: Single-node Apache Kafka in KRaft mode for local Kubernetes testing
+type: application
+version: 0.1.0
+appVersion: "4.0.2"

@@ -1,0 +1,108 @@
+otelCollector:
+  image:
+    repository: otel/opentelemetry-collector-contrib
+    tag: "0.151.0"
+    pullPolicy: IfNotPresent
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+    processors:
+      batch:
+
+    exporters:
+      prometheus:
+        endpoint: "0.0.0.0:8889"
+      otlp/tempo:
+        endpoint: "tempo:4317"
+        tls:
+          insecure: true
+      otlp_http/loki:
+        endpoint: "http://loki:3100/otlp"
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlp/tempo]
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [prometheus]
+        logs:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [otlp_http/loki]
+
+prometheus:
+  image:
+    repository: prom/prometheus
+    tag: latest
+    pullPolicy: IfNotPresent
+  config: |
+    scrape_configs:
+      - job_name: 'otel-collector'
+        scrape_interval: 5s
+        static_configs:
+          - targets: ['otel-collector:8889']
+
+tempo:
+  image:
+    repository: grafana/tempo
+    tag: latest
+    pullPolicy: IfNotPresent
+  config: |
+    server:
+      http_listen_port: 3200
+
+    distributor:
+      receivers:
+        otlp:
+          protocols:
+            grpc:
+              endpoint: 0.0.0.0:4317
+
+    storage:
+      trace:
+        backend: local
+        local:
+          path: /tmp/tempo/blocks
+
+loki:
+  image:
+    repository: grafana/loki
+    tag: latest
+    pullPolicy: IfNotPresent
+
+grafana:
+  image:
+    repository: grafana/grafana
+    tag: latest
+    pullPolicy: IfNotPresent
+  datasources: |
+    apiVersion: 1
+
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        uid: prometheus
+        url: http://prometheus:9090
+        access: proxy
+        isDefault: true
+
+      - name: Tempo
+        type: tempo
+        uid: tempo
+        url: http://tempo:3200
+        access: proxy
+
+      - name: Loki
+        type: loki
+        uid: loki
+        url: http://loki:3100
+        access: proxy

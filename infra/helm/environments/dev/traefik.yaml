@@ -1,0 +1,34 @@
+traefik:
+  deployment:
+    replicas: 1
+
+  api:
+    dashboard: false
+
+  providers:
+    kubernetesCRD:
+      enabled: false
+    kubernetesIngress:
+      enabled: true
+      ingressClass: traefik
+    kubernetesGateway:
+      enabled: false
+
+  ingressClass:
+    enabled: true
+    isDefaultClass: true
+
+  service:
+    enabled: true
+    type: NodePort
+
+  ports:
+    traefik:
+      expose:
+        default: false
+    web:
+      exposedPort: 80
+      nodePort: 30080
+    websecure:
+      expose:
+        default: false

@@ -1,0 +1,4 @@
+image:
+  repository: payments
+  tag: latest
+  pullPolicy: IfNotPresent

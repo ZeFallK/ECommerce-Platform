@@ -1,0 +1,91 @@
+helmDefaults:
+  wait: false
+  timeout: 600
+  atomic: false
+  cleanupOnFail: false
+  createNamespace: false
+
+missingFileHandler: Error
+
+environments:
+  dev:
+    values:
+      - environments/dev/environment.yaml
+---
+repositories:
+  - name: traefik
+    url: https://traefik.github.io/charts
+
+releases:
+  - name: kafka
+    namespace: ecommerce
+    chart: ./kafka
+    values:
+      - environments/{{ .Environment.Name }}/common.yaml
+      - environments/{{ .Environment.Name }}/kafka.yaml
+
+  - name: observability
+    namespace: ecommerce
+    chart: ./observability
+    needs:
+      - ecommerce/kafka
+
+  - name: keycloak
+    namespace: ecommerce
+    chart: ./keycloak
+    values:
+      - environments/{{ .Environment.Name }}/common.yaml
+      - environments/{{ .Environment.Name }}/keycloak.yaml
+
+  - name: traefik
+    namespace: ingress-system
+    chart: ./traefik-config
+    values:
+      - environments/{{ .Environment.Name }}/common.yaml
+      - environments/{{ .Environment.Name }}/traefik.yaml
+
+  - name: orders
+    namespace: ecommerce
+    chart: ./charts/orders
+    needs:
+      - ecommerce/kafka
+      - ecommerce/keycloak
+      - ecommerce/observability
+      - ingress-system/traefik
+    values:
+      - environments/{{ .Environment.Name }}/common.yaml
+      - environments/{{ .Environment.Name }}/orders.yaml
+
+  - name: payments
+    namespace: ecommerce
+    chart: ./charts/payments
+    needs:
+      - ecommerce/kafka
+      - ecommerce/keycloak
+      - ecommerce/observability
+      - ingress-system/traefik
+    values:
+      - environments/{{ .Environment.Name }}/common.yaml
+      - environments/{{ .Environment.Name }}/payments.yaml
+
+  - name: inventory
+    namespace: ecommerce
+    chart: ./charts/inventory
+    needs:
+      - ecommerce/kafka
+      - ecommerce/keycloak
+      - ecommerce/observability
+      - ingress-system/traefik
+    values:
+      - environments/{{ .Environment.Name }}/common.yaml
+      - environments/{{ .Environment.Name }}/inventory.yaml
+
+  - name: frontend
+    namespace: ecommerce
+    chart: ./charts/frontend
+    needs:
+      - ecommerce/keycloak
+      - ingress-system/traefik
+    values:
+      - environments/{{ .Environment.Name }}/common.yaml
+      - environments/{{ .Environment.Name }}/frontend.yaml
