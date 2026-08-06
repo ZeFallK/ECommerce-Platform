@@ -11,6 +11,7 @@ Le dépôt est un monorepo contenant :
   - Frontend : React (Vite) dans `frontend/`
   - Backend : Microservices Python (FastAPI) dans `services/`
   - Infrastructure : Docker Compose dans `infra/` -> Migration vers Helm dans `infra/helm/`
+  - Documentation : documentation technique MkDocs dans `documentation/`
 # Directives Strictes pour l'Agent
 
 # Fichiers à Ignorer / Hors Périmètre
@@ -39,7 +40,7 @@ Ne scrute pas et ne modifie pas les dossiers suivants :
 
 ## 2. Sanctuarisation du Code Applicatif (Lecture Seule)
 - **RÈGLE ABSOLUE :** Tu as l'interdiction formelle de modifier, proposer de modifier, ou générer du code source applicatif (fichiers `.py`, `.jsx`, `.js`). Le code actuel est 100% fonctionnel et validé.
-- Ton périmètre d'action est STRICTEMENT limité au dossier `infra/helm/` et à l'écriture de manifests Kubernetes/Helm.
+- Pour les tâches d'infrastructure, ton périmètre d'action est STRICTEMENT limité au dossier `infra/helm/` et à l'écriture de manifests Kubernetes/Helm. Pour les tâches explicitement documentaires, le périmètre autorisé est `documentation/` ; la sanctuarisation du code applicatif reste applicable.
 - **Contexte technique (Pour information uniquement) :**
   - Les microservices communiquent exclusivement de manière asynchrone via Kafka (tu dois donc t'assurer que tes manifests Helm permettent cette connexion réseau interne).
   - Les APIs FastAPI utilisent un paramètre `root_path`. Ton configuration d'Ingress Kubernetes devra respecter cette logique de routage sans demander de changement côté backend.
@@ -51,3 +52,20 @@ Ne scrute pas et ne modifie pas les dossiers suivants :
 - Pour TOUTE commande de modification, tu dois proposer la commande dans ta réponse et attendre la validation explicite de l'utilisateur avant de l'exécuter.
 - Tu es autorisé à exécuter UNIQUEMENT des commandes d'inspection passives si nécessaire (`kubectl get`, `kubectl describe`, `helm list`, `docker ps`).
 - Demande de confirmation : Si tu dois vérifier l'état du système, demande TOUJOURS confirmation à l'utilisateur au préalable (ex: *"Puis-je exécuter `kubectl get pods` pour vérifier ?"*).
+
+## 4. Documentation technique
+- Toute documentation doit être écrite uniquement dans `documentation/`.
+- Les sources Markdown sont situées dans `documentation/docs/` et la configuration MkDocs dans `documentation/mkdocs.yml`.
+- Ne modifie pas manuellement `documentation/site/` : ce dossier est généré par MkDocs.
+- Analyse l'implémentation réelle avant d'écrire. Le code source, les configurations et les manifests sont les sources de vérité.
+- Ne présente aucune fonctionnalité ou communication qui ne puisse être vérifiée dans le code ou la configuration du dépôt.
+- Distingue explicitement l'architecture prévue de l'implémentation actuelle et signale les limitations ou incohérences importantes.
+- Explique pourquoi les technologies sont utilisées, et pas uniquement ce qu'elles font.
+- Utilise Mermaid lorsque cela améliore la compréhension de l'architecture ou des flux.
+- En cas d'incertitude, recherche d'abord dans le dépôt, puis indique clairement l'incertitude au lieu de supposer.
+- Ne divulgue jamais de secrets, mots de passe, tokens ou valeurs de configuration sensibles dans la documentation.
+- Toute documentation doit être rédigée en français ; conserve les noms des technologies, routes API, clés de configuration et identifiants de code dans leur forme originale.
+- Le public visé comprend les développeurs, les ingénieurs DevOps/Cloud, les étudiants en ingénierie et les évaluateurs techniques ; explique les éléments spécifiques au projet en supposant des connaissances générales de développement.
+- Après toute modification documentaire, vérifie les liens internes, les chemins de fichiers et la syntaxe Mermaid.
+- Après toute modification documentaire, lance depuis la racine du dépôt `mkdocs build --strict -f documentation/mkdocs.yml` et rapporte les avertissements ou erreurs non résolus.
+- Ne committe ni ne pousse automatiquement les modifications documentaires.

@@ -1,0 +1,3529 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation technique complète de la plateforme e-commerce microservices">
+      
+      
+        <meta name="author" content="Équipe de développement">
+      
+      
+      
+        <link rel="prev" href="../minikube/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Dépannage - ECommerce Platform Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#depannage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="ECommerce Platform Documentation" class="md-header__button md-logo" aria-label="ECommerce Platform Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ECommerce Platform Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Dépannage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../architecture/overview/" class="md-tabs__link">
+          
+  
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../services/orders/" class="md-tabs__link">
+          
+  
+  
+  Microservices
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../infrastructure/docker/" class="md-tabs__link">
+          
+  
+  
+  Infrastructure
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../observability/overview/" class="md-tabs__link">
+          
+  
+  
+  Observabilité
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/orders-api/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../setup/" class="md-tabs__link">
+          
+  
+  
+  Développement
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ECommerce Platform Documentation" class="md-nav__button md-logo" aria-label="ECommerce Platform Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ECommerce Platform Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Composants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/request-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flux des requêtes HTTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/event-driven/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture événementielle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentification Keycloak
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microservices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Microservices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/orders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orders Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/inventory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/payments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Payments Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frontend React
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker Compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/kubernetes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/helm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/helmfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Helmfile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/traefik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traefik (API Gateway)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/ingress-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingress et DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/kafka/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache Kafka
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/keycloak/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keycloak (Auth)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observabilité
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Observabilité
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../observability/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../observability/opentelemetry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenTelemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../observability/prometheus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prometheus (Metrics)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../observability/tempo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tempo (Traces)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../observability/loki/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loki (Logs)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../observability/grafana/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Grafana (Dashboards)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/orders-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orders API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/inventory-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/payments-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Payments API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/health-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Health Checks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Développement
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Développement
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guide de mise en place
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minikube/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minikube
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dépannage
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dépannage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problemes-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problèmes Courants
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problèmes Courants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#services-ne-demarrant-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services ne Démarrant Pas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Services ne Démarrant Pas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causes-possibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causes Possibles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kafka-inaccessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kafka Inaccessible
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kafka Inaccessible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keycloak-inaccessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keycloak Inaccessible
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keycloak Inaccessible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grafana-non-accessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grafana Non Accessible
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Grafana Non Accessible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs-non-apparaissant-dans-loki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logs Non Apparaissant dans Loki
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logs Non Apparaissant dans Loki">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics-non-apparaissant-dans-prometheus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics Non Apparaissant dans Prometheus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metrics Non Apparaissant dans Prometheus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traces-non-apparaissant-dans-tempo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traces Non Apparaissant dans Tempo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Traces Non Apparaissant dans Tempo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend-ne-charge-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend Ne Charge Pas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend Ne Charge Pas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erreurs-de-connexion-a-kafka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erreurs de Connexion à Kafka
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Erreurs de Connexion à Kafka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erreurs-jwt-authentification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erreurs JWT / Authentification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Erreurs JWT / Authentification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commandes-de-diagnostic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commandes de Diagnostic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commandes de Diagnostic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etat-des-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        État des Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs-recents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logs Récents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sante-des-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Santé des Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Réseau
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ressources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ressources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nettoyage-complet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nettoyage Complet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#obtenir-de-laide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obtenir de l'Aide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Obtenir de l&#39;Aide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logs-completes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logs Complètes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-kubernetes-minikube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic Kubernetes / Minikube
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diagnostic Kubernetes / Minikube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-locale-indisponible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image locale indisponible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kafka-non-pret-dans-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kafka non prêt dans Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingress-inaccessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ingress inaccessible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keycloak-non-pret" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keycloak non prêt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ressources_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ressources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problemes-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problèmes Courants
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problèmes Courants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#services-ne-demarrant-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services ne Démarrant Pas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Services ne Démarrant Pas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causes-possibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causes Possibles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kafka-inaccessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kafka Inaccessible
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kafka Inaccessible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keycloak-inaccessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keycloak Inaccessible
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keycloak Inaccessible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grafana-non-accessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grafana Non Accessible
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Grafana Non Accessible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs-non-apparaissant-dans-loki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logs Non Apparaissant dans Loki
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logs Non Apparaissant dans Loki">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metrics-non-apparaissant-dans-prometheus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics Non Apparaissant dans Prometheus
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metrics Non Apparaissant dans Prometheus">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traces-non-apparaissant-dans-tempo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traces Non Apparaissant dans Tempo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Traces Non Apparaissant dans Tempo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#frontend-ne-charge-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend Ne Charge Pas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend Ne Charge Pas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erreurs-de-connexion-a-kafka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erreurs de Connexion à Kafka
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Erreurs de Connexion à Kafka">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#causes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Causes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erreurs-jwt-authentification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erreurs JWT / Authentification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Erreurs JWT / Authentification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symptome_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symptôme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vérifications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commandes-de-diagnostic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commandes de Diagnostic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commandes de Diagnostic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etat-des-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        État des Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs-recents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logs Récents
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sante-des-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Santé des Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Réseau
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ressources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ressources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nettoyage-complet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nettoyage Complet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#obtenir-de-laide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obtenir de l'Aide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Obtenir de l&#39;Aide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logs-completes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logs Complètes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-kubernetes-minikube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic Kubernetes / Minikube
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Diagnostic Kubernetes / Minikube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#image-locale-indisponible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image locale indisponible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kafka-non-pret-dans-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kafka non prêt dans Kubernetes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingress-inaccessible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ingress inaccessible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keycloak-non-pret" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keycloak non prêt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ressources_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ressources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="depannage">Dépannage<a class="headerlink" href="#depannage" title="Permanent link">&para;</a></h1>
+<h2 id="problemes-courants">Problèmes Courants<a class="headerlink" href="#problemes-courants" title="Permanent link">&para;</a></h2>
+<p>Les commandes Docker Compose ci-dessous sont à lancer depuis la racine du dépôt avec <code>-f infra/docker-compose.yml</code>. Les problèmes Kubernetes sont traités dans la section dédiée en fin de page.</p>
+<h3 id="services-ne-demarrant-pas">Services ne Démarrant Pas<a class="headerlink" href="#services-ne-demarrant-pas" title="Permanent link">&para;</a></h3>
+<h4 id="symptome">Symptôme<a class="headerlink" href="#symptome" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>ps
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># orders service est &quot;unhealthy&quot;</span>
+</code></pre></div>
+<h4 id="causes-possibles">Causes Possibles<a class="headerlink" href="#causes-possibles" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Kafka non disponible</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>kafka
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># Vérifier si Kafka est healthy</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Port déjà utilisé</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Vérifier les ports utilisés</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>netstat<span class="w"> </span>-tulpn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>:80
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>netstat<span class="w"> </span>-tulpn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>:9092
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Erreur de construction Docker</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>build<span class="w"> </span>--no-cache
+</code></pre></div></p>
+</li>
+</ol>
+<h4 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Redémarrer tous les services</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>down
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>up<span class="w"> </span>--build
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Vérifier l&#39;état</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>ps
+</code></pre></div>
+<h3 id="kafka-inaccessible">Kafka Inaccessible<a class="headerlink" href="#kafka-inaccessible" title="Permanent link">&para;</a></h3>
+<h4 id="symptome_1">Symptôme<a class="headerlink" href="#symptome_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Producer Kafka connect failed
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Error connecting to kafka:9092
+</code></pre></div>
+<h4 id="verifications">Vérifications<a class="headerlink" href="#verifications" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Vérifier le health check</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>kafka<span class="w"> </span>/opt/kafka/bin/kafka-broker-api-versions.sh<span class="w"> </span>--bootstrap-server<span class="w"> </span>localhost:9092
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Vérifier les logs</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>kafka
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Vérifier le réseau</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>ECommerce-Platform_ecommerce-net
+</code></pre></div></p>
+</li>
+</ol>
+<h4 id="solution_1">Solution<a class="headerlink" href="#solution_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Attendre que Kafka soit healthy (peut prendre 40s)</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>kafka<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Kafka Server started&quot;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Redémarrer Kafka</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>restart<span class="w"> </span>kafka
+</code></pre></div>
+<h3 id="keycloak-inaccessible">Keycloak Inaccessible<a class="headerlink" href="#keycloak-inaccessible" title="Permanent link">&para;</a></h3>
+<h4 id="symptome_2">Symptôme<a class="headerlink" href="#symptome_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>401 Unauthorized
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Token invalide
+</code></pre></div>
+<h4 id="verifications_1">Vérifications<a class="headerlink" href="#verifications_1" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Vérifier si Keycloak est démarré</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>keycloak<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Running the server&quot;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Vérifier l'URL</strong></p>
+</li>
+<li>Correct : <code>http://localhost/auth</code></li>
+<li>
+<p>Incorrect : <code>http://localhost:8080/auth</code></p>
+</li>
+<li>
+<p><strong>Vérifier le realm</strong></p>
+</li>
+<li>Le realm doit être <code>ecommerce</code></li>
+</ol>
+<h4 id="solution_2">Solution<a class="headerlink" href="#solution_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Redémarrer Keycloak</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>restart<span class="w"> </span>keycloak
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Attendre le démarrage complet</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>sleep<span class="w"> </span><span class="m">30</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Tester l&#39;accès</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>curl<span class="w"> </span>http://localhost/auth/realms/ecommerce/.well-known/openid-configuration
+</code></pre></div>
+<h3 id="grafana-non-accessible">Grafana Non Accessible<a class="headerlink" href="#grafana-non-accessible" title="Permanent link">&para;</a></h3>
+<h4 id="symptome_3">Symptôme<a class="headerlink" href="#symptome_3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Unable to connect to Grafana
+</code></pre></div>
+<h4 id="verifications_2">Vérifications<a class="headerlink" href="#verifications_2" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Vérifier le port</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>curl<span class="w"> </span>http://localhost:3000/api/health
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Vérifier les datasources</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span>http://localhost:3000/api/datasources
+</code></pre></div></p>
+</li>
+</ol>
+<h4 id="solution_3">Solution<a class="headerlink" href="#solution_3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Redémarrer Grafana</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>restart<span class="w"> </span>grafana
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Vérifier les logs</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>grafana
+</code></pre></div>
+<h3 id="logs-non-apparaissant-dans-loki">Logs Non Apparaissant dans Loki<a class="headerlink" href="#logs-non-apparaissant-dans-loki" title="Permanent link">&para;</a></h3>
+<h4 id="symptome_4">Symptôme<a class="headerlink" href="#symptome_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Aucun log dans Grafana Explore
+</code></pre></div>
+<h4 id="verifications_3">Vérifications<a class="headerlink" href="#verifications_3" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Vérifier OTel Collector</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>otel-collector
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Vérifier Loki</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>loki
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Vérifier le label service_name</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>{service_name=&quot;orders&quot;}
+</code></pre></div></p>
+</li>
+</ol>
+<h4 id="solution_4">Solution<a class="headerlink" href="#solution_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Redémarrer OTel Collector</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>restart<span class="w"> </span>otel-collector
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># Vérifier que les services envoient des logs</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>orders<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
+</code></pre></div>
+<h3 id="metrics-non-apparaissant-dans-prometheus">Metrics Non Apparaissant dans Prometheus<a class="headerlink" href="#metrics-non-apparaissant-dans-prometheus" title="Permanent link">&para;</a></h3>
+<h4 id="symptome_5">Symptôme<a class="headerlink" href="#symptome_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Aucune metric dans Prometheus
+</code></pre></div>
+<h4 id="verifications_4">Vérifications<a class="headerlink" href="#verifications_4" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Vérifier les targets</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>curl<span class="w"> </span>http://localhost:9090/api/v1/targets<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Vérifier l'exporter OTel</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>curl<span class="w"> </span>http://localhost:9090/api/v1/query?query<span class="o">=</span>up
+</code></pre></div></p>
+</li>
+</ol>
+<h4 id="solution_5">Solution<a class="headerlink" href="#solution_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Redémarrer OTel Collector</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>restart<span class="w"> </span>otel-collector
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># Vérifier l&#39;endpoint metrics</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>curl<span class="w"> </span>http://localhost:8889/metrics
+</code></pre></div>
+<h3 id="traces-non-apparaissant-dans-tempo">Traces Non Apparaissant dans Tempo<a class="headerlink" href="#traces-non-apparaissant-dans-tempo" title="Permanent link">&para;</a></h3>
+<h4 id="symptome_6">Symptôme<a class="headerlink" href="#symptome_6" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>Aucune trace dans Grafana Explore
+</code></pre></div>
+<h4 id="verifications_5">Vérifications<a class="headerlink" href="#verifications_5" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Vérifier Tempo</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>curl<span class="w"> </span>http://localhost:3200/ready
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Vérifier les services</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>orders<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;trace&quot;</span>
+</code></pre></div></p>
+</li>
+</ol>
+<h4 id="solution_6">Solution<a class="headerlink" href="#solution_6" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Redémarrer Tempo</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>restart<span class="w"> </span>tempo
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="c1"># Redémarrer un service pour générer des traces</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>restart<span class="w"> </span>orders
+</code></pre></div>
+<h3 id="frontend-ne-charge-pas">Frontend Ne Charge Pas<a class="headerlink" href="#frontend-ne-charge-pas" title="Permanent link">&para;</a></h3>
+<h4 id="symptome_7">Symptôme<a class="headerlink" href="#symptome_7" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>Blank page ou erreur de chargement
+</code></pre></div>
+<h4 id="verifications_6">Vérifications<a class="headerlink" href="#verifications_6" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Vérifier le navigateur console</strong></li>
+<li>Ouvrir DevTools (F12)</li>
+<li>
+<p>Vérifier les erreurs JavaScript</p>
+</li>
+<li>
+<p><strong>Vérifier les appels API</strong></p>
+</li>
+<li>Onglet Network dans DevTools</li>
+<li>
+<p>Vérifier les requêtes échouées</p>
+</li>
+<li>
+<p><strong>Vérifier l'authentification</strong></p>
+</li>
+<li>Être connecté à Keycloak</li>
+<li>Token valide</li>
+</ol>
+<h4 id="solution_7">Solution<a class="headerlink" href="#solution_7" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Redémarrer le frontend</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>restart<span class="w"> </span>frontend
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="c1"># Vider le cache du navigateur</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>Ctrl<span class="w"> </span>+<span class="w"> </span>Shift<span class="w"> </span>+<span class="w"> </span>Delete
+</code></pre></div>
+<h3 id="erreurs-de-connexion-a-kafka">Erreurs de Connexion à Kafka<a class="headerlink" href="#erreurs-de-connexion-a-kafka" title="Permanent link">&para;</a></h3>
+<h4 id="symptome_8">Symptôme<a class="headerlink" href="#symptome_8" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>aiokafka.errors.KafkaConnectionError: Kafka connection failed
+</code></pre></div>
+<h4 id="causes">Causes<a class="headerlink" href="#causes" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Kafka en cours de démarrage</strong></li>
+<li><strong>Réseau Docker incorrect</strong></li>
+<li><strong>Configuration advertised listeners</strong></li>
+</ol>
+<h4 id="solution_8">Solution<a class="headerlink" href="#solution_8" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># Attendre que Kafka soit healthy</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>kafka<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Kafka Server started&quot;</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="c1"># Vérifier la configuration</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>kafka<span class="w"> </span>cat<span class="w"> </span>/opt/kafka/config/server.properties<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>advertised
+</code></pre></div>
+<h3 id="erreurs-jwt-authentification">Erreurs JWT / Authentification<a class="headerlink" href="#erreurs-jwt-authentification" title="Permanent link">&para;</a></h3>
+<h4 id="symptome_9">Symptôme<a class="headerlink" href="#symptome_9" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>401 Unauthorized
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>Token invalide ou expiré
+</code></pre></div>
+<h4 id="verifications_7">Vérifications<a class="headerlink" href="#verifications_7" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>Token expiré</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1">// Vérifier l&#39;expiration</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">keycloak</span><span class="p">.</span><span class="nx">timeSkew</span><span class="p">);</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Realm incorrect</strong></p>
+</li>
+<li>
+<p>Vérifier que le realm est <code>ecommerce</code></p>
+</li>
+<li>
+<p><strong>Client ID incorrect</strong></p>
+</li>
+<li>Vérifier que le client est <code>ecomm-front</code></li>
+</ol>
+<h4 id="solution_9">Solution<a class="headerlink" href="#solution_9" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Se déconnecter et reconnecter</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>keycloak.logout<span class="o">()</span><span class="p">;</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>keycloak.login<span class="o">()</span><span class="p">;</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="c1"># Vérifier Keycloak</span>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>curl<span class="w"> </span>http://localhost/auth/realms/ecommerce/.well-known/openid-configuration
+</code></pre></div>
+<h2 id="commandes-de-diagnostic">Commandes de Diagnostic<a class="headerlink" href="#commandes-de-diagnostic" title="Permanent link">&para;</a></h2>
+<h3 id="etat-des-services">État des Services<a class="headerlink" href="#etat-des-services" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>ps
+</code></pre></div>
+<h3 id="logs-recents">Logs Récents<a class="headerlink" href="#logs-recents" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># Tous les services</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="c1"># Service spécifique</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span><span class="w"> </span>orders
+</code></pre></div>
+<h3 id="sante-des-services">Santé des Services<a class="headerlink" href="#sante-des-services" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># Health checks</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">&#39;{{.State.Health.Status}}&#39;</span><span class="w"> </span>orders
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">&#39;{{.State.Health.Status}}&#39;</span><span class="w"> </span>kafka
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">&#39;{{.State.Health.Status}}&#39;</span><span class="w"> </span>keycloak
+</code></pre></div>
+<h3 id="reseau">Réseau<a class="headerlink" href="#reseau" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># Liste des réseaux</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>docker<span class="w"> </span>network<span class="w"> </span>ls
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1"># Inspecter le réseau</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>ECommerce-Platform_ecommerce-net
+</code></pre></div>
+<h3 id="ressources">Ressources<a class="headerlink" href="#ressources" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># Utilisation CPU/Mémoire</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>docker<span class="w"> </span>stats
+</code></pre></div>
+<h2 id="nettoyage-complet">Nettoyage Complet<a class="headerlink" href="#nettoyage-complet" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># Arrêter tous les services</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>down<span class="w"> </span>-v
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="c1"># Supprimer les images</span>
+<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>down<span class="w"> </span>--rmi<span class="w"> </span>all
+<a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>
+<a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="c1"># Supprimer les volumes</span>
+<a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>docker<span class="w"> </span>volume<span class="w"> </span>rm<span class="w"> </span>ECommerce-Platform_keycloak_data
+<a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a>
+<a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a><span class="c1"># Reconstruire tout</span>
+<a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>up<span class="w"> </span>--build
+</code></pre></div>
+<h2 id="obtenir-de-laide">Obtenir de l'Aide<a class="headerlink" href="#obtenir-de-laide" title="Permanent link">&para;</a></h2>
+<h3 id="logs-completes">Logs Complètes<a class="headerlink" href="#logs-completes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># Collecter tous les logs</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>logs<span class="w"> </span>&gt;<span class="w"> </span>logs.txt
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="c1"># Partager les logs pour debug</span>
+</code></pre></div>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1"># Vérifier la configuration Docker Compose</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>config
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="c1"># Vérifier les variables d&#39;environnement</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>infra/docker-compose.yml<span class="w"> </span>--env-file<span class="w"> </span>.env<span class="w"> </span>config
+</code></pre></div>
+<h2 id="diagnostic-kubernetes-minikube">Diagnostic Kubernetes / Minikube<a class="headerlink" href="#diagnostic-kubernetes-minikube" title="Permanent link">&para;</a></h2>
+<p>Pour le parcours Helm, commencer par identifier le namespace et la release concernés :</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>ecommerce
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>ingress-system
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-n<span class="w"> </span>ecommerce<span class="w"> </span>--sort-by<span class="o">=</span>.lastTimestamp
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>kubectl<span class="w"> </span>get<span class="w"> </span>ingress<span class="w"> </span>-n<span class="w"> </span>ecommerce
+</code></pre></div>
+<h3 id="image-locale-indisponible">Image locale indisponible<a class="headerlink" href="#image-locale-indisponible" title="Permanent link">&para;</a></h3>
+<p>Si un pod affiche <code>ImagePullBackOff</code> pour <code>frontend:latest</code>, <code>orders:latest</code>, <code>inventory:latest</code> ou <code>payments:latest</code>, reconstruire les images dans le daemon Docker de Minikube avec <code>./deploy-images.sh</code>. Les valeurs dev utilisent <code>IfNotPresent</code> et n'utilisent pas de registry externe pour ces images.</p>
+<h3 id="kafka-non-pret-dans-kubernetes">Kafka non prêt dans Kubernetes<a class="headerlink" href="#kafka-non-pret-dans-kubernetes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>statefulset<span class="w"> </span>kafka<span class="w"> </span>-n<span class="w"> </span>ecommerce
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>kubectl<span class="w"> </span>logs<span class="w"> </span>statefulset/kafka<span class="w"> </span>-n<span class="w"> </span>ecommerce
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>kubectl<span class="w"> </span>get<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>-n<span class="w"> </span>ecommerce
+<a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>ecommerce<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/instance<span class="o">=</span>kafka
+</code></pre></div>
+<p>Le chart utilise un StatefulSet mono-réplique, un service headless et un Job Helm pour créer les topics. Vérifier la probe Kafka et la terminaison du Job avant d'analyser les services métier.</p>
+<h3 id="ingress-inaccessible">Ingress inaccessible<a class="headerlink" href="#ingress-inaccessible" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>ingressclass<span class="w"> </span>traefik
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>traefik<span class="w"> </span>-n<span class="w"> </span>ingress-system
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>minikube<span class="w"> </span>ip
+<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>curl<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Host: ecommerce.test&#39;</span><span class="w"> </span>http://<span class="k">$(</span>minikube<span class="w"> </span>ip<span class="k">)</span>:30080/api/orders/health
+</code></pre></div>
+<p>La configuration dev expose Traefik par le NodePort <code>30080</code>, pas par le port 80 de l'hôte. Les hosts Ingress sont vides par défaut ; le header <code>Host</code> permet de reproduire un accès par hostname pendant le diagnostic.</p>
+<h3 id="keycloak-non-pret">Keycloak non prêt<a class="headerlink" href="#keycloak-non-pret" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>-n<span class="w"> </span>ecommerce
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span>ecommerce<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>keycloak
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>kubectl<span class="w"> </span>logs<span class="w"> </span>deploy/keycloak<span class="w"> </span>-n<span class="w"> </span>ecommerce
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>ecommerce<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/instance<span class="o">=</span>keycloak
+</code></pre></div>
+<p>Le chart monte un Secret realm et un PVC de développement. Ne pas afficher ou copier les valeurs des Secrets dans un ticket ou dans la documentation.</p>
+<h2 id="ressources_1">Ressources<a class="headerlink" href="#ressources_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.docker.com/">Documentation Docker</a></li>
+<li><a href="https://www.keycloak.org/documentation">Documentation Keycloak</a></li>
+<li><a href="https://kafka.apache.org/documentation/">Documentation Kafka</a></li>
+<li><a href="https://grafana.com/docs/">Documentation Grafana</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 - Documentation ECommerce Platform
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

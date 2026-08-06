@@ -1,0 +1,97 @@
+site_name: ECommerce Platform Documentation
+site_description: Documentation technique complète de la plateforme e-commerce microservices
+site_author: Équipe de développement
+
+docs_dir: docs
+
+nav:
+  - Accueil: index.md
+
+  - Architecture:
+      - Vue d'ensemble: architecture/overview.md
+      - Composants: architecture/components.md
+      - Flux des requêtes HTTP: architecture/request-flow.md
+      - Architecture événementielle: architecture/event-driven.md
+      - Authentification Keycloak: architecture/authentication.md
+
+  - Microservices:
+      - Orders Service: services/orders.md
+      - Inventory Service: services/inventory.md
+      - Payments Service: services/payments.md
+      - Frontend React: services/frontend.md
+
+  - Infrastructure:
+      - Docker Compose: infrastructure/docker.md
+      - Kubernetes: infrastructure/kubernetes.md
+      - Helm: infrastructure/helm.md
+      - Helmfile: infrastructure/helmfile.md
+      - Traefik (API Gateway): infrastructure/traefik.md
+      - Ingress et DNS: infrastructure/ingress-dns.md
+      - Apache Kafka: infrastructure/kafka.md
+      - Keycloak (Auth): infrastructure/keycloak.md
+
+  - Observabilité:
+      - Vue d'ensemble: observability/overview.md
+      - OpenTelemetry: observability/opentelemetry.md
+      - Prometheus (Metrics): observability/prometheus.md
+      - Tempo (Traces): observability/tempo.md
+      - Loki (Logs): observability/loki.md
+      - Grafana (Dashboards): observability/grafana.md
+
+  - API Reference:
+      - Orders API: api/orders-api.md
+      - Inventory API: api/inventory-api.md
+      - Payments API: api/payments-api.md
+      - Health Checks: api/health-checks.md
+
+  - Développement:
+      - Guide de mise en place: development/setup.md
+      - Minikube: development/minikube.md
+      - Dépannage: development/troubleshooting.md
+
+theme:
+  name: material
+  palette:
+    primary: blue
+    accent: blue
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  - toc:
+      permalink: true
+
+  - tables
+
+extra_javascript:
+  - https://unpkg.com/mermaid/dist/mermaid.min.js
+
+extra:
+  generator: false
+
+copyright: Copyright © 2026 - Documentation ECommerce Platform
